@@ -57,3 +57,28 @@
   border: 2px black solid;
   border-radius: 10px;
 }
+
+.screen{
+  width: 700px;
+  height: 250px;
+  border: 2px black solid;
+  border-radius: 10px;
+  position: relative;
+  top: 30.2%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.options{
+  display: grid;
+  grid-template-columns: repeat(2,360px);
+  margin: 55px 20px 0px 22px;
+
+}
+
+.option{
+  border: 2px black solid;
+  height: 45px;
+  width: 340px;
+  margin: 2px 0px 17px 0px;
+}
