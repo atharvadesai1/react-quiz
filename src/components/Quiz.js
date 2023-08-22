@@ -6,33 +6,35 @@ function Quiz(props) {
   const [quest,setquest] = useState(quizPart[i].question)
 
   const nextQuestion = ()=>{
+    let m
     if(i!==4){
-      let m = i
+      m = i
       m +=1;
       seti(m)
       setquest(quizPart[i].question)
+      console.log(m)
     }
-    // else{
-    //   let k = i
-    //   k=i-1
-    //   seti(k)
-    //   setquest(quizPart[i].question)
-    // }
+    else{
+      m = i-1
+      seti(4)
+      setquest(quizPart[i].question)
+    }
   }
 
   const previousQuestion = ()=>{
+    let m
     if(i!==0){
-      let m = i
+      m = i
       m -=1;
       seti(m)
       setquest(quizPart[i].question)
+      console.log(m)
     }
-  //   else{
-  //     let k = i
-  //     k=i+1
-  //     seti(k)
-  //     setquest(quizPart[i].question)
-  //   }
+    else{
+      m = i+1
+      seti(0)
+      setquest(quizPart[i].question)
+    }
   }
 
   return (
