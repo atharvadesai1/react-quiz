@@ -3,7 +3,8 @@ import {quizPart} from './Question'
 // import Result from './Result'
 
 let selectedvalue = [];
-let check = [];
+// let check = [];
+const check  = [];
 // const space = "";
 
 
@@ -12,6 +13,7 @@ function Quiz(props) {
   const[signal,setsignal] = useState([0,0,0,0])
   const[score, setscore] = useState(0)
   const [i,seti] = useState(0)
+  const[allow,setallow] = useState(0)
   const [quest,setquest] = useState(quizPart[i].question)
   const [quest_optionA, setquest_optionA] = useState(quizPart[i].option_given[0])
   const [quest_optionB, setquest_optionB] = useState(quizPart[i].option_given[1])
@@ -61,8 +63,11 @@ function Quiz(props) {
     setoptionClassC("btn btn-warning")
     setoptionClassD("btn btn-warning")
 
-    if(i<5){
-      
+    // if(i===5){
+    //   return null;
+    // }
+
+    if(i<5){   
       for(let k=0;k<signal.length;k++){
         if(signal[k]===1){
           console.log(signal)
@@ -71,6 +76,7 @@ function Quiz(props) {
         }
       }
     }
+    
     let m
       if(i<4){
         m = i
@@ -84,6 +90,7 @@ function Quiz(props) {
       }
       else{
         // m = i
+        // m +=1;
         // seti(m)
         // setquest(quizPart[m].question)
         // setquest_optionA(quizPart[m].option_given[0])
@@ -92,21 +99,25 @@ function Quiz(props) {
         // setquest_optionD(quizPart[m].option_given[3])
         console.log("aagaya bhaiiii")
         let score_val =0
-        for(let k=0;k<quizPart.length;k++){
-          console.log(selectedvalue[k])
-          if(selectedvalue[k]===quizPart[k].answer){
-              check.push('Correct');
-              score_val+=1
-              setscore(score_val)
-          }
-          else{
-              check.push('Incorrect');
-          }
+        if(allow===0){ 
+            setallow(1)      
+            for(let k=0;k<quizPart.length;k++){
+              console.log(selectedvalue[k])
+              if(selectedvalue[k]===quizPart[k].answer){
+                  check.push('Correct');
+                  score_val+=1
+                  setscore(score_val)
+              }
+              else{
+                  check.push('Incorrect');
+              }
+            }
+            setshowscore(true)
+            console.log(check)
         }
-        setshowscore(true)
-        console.log(check)
-        return check;
+        
     }
+
 
   }
 
