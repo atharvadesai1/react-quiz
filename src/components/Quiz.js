@@ -2,64 +2,72 @@ import React, {useState} from 'react'
 import {quizPart} from './Question'
 // import Result from './Result'
 
+let selectedvalue = [];
+let check = [];
+// const space = "";
+
 
 function Quiz(props) {
+  const [showscore, setshowscore] = useState(false)
+  const[signal,setsignal] = useState([0,0,0,0])
+  const[score, setscore] = useState(0)
   const [i,seti] = useState(0)
   const [quest,setquest] = useState(quizPart[i].question)
   const [quest_optionA, setquest_optionA] = useState(quizPart[i].option_given[0])
   const [quest_optionB, setquest_optionB] = useState(quizPart[i].option_given[1])
   const [quest_optionC, setquest_optionC] = useState(quizPart[i].option_given[2])
   const [quest_optionD, setquest_optionD] = useState(quizPart[i].option_given[3])
-  const [optionClassA, setoptionClassA] = useState("btn btn-outline-warning")
-  const [optionClassB, setoptionClassB] = useState("btn btn-outline-warning")
-  const [optionClassC, setoptionClassC] = useState("btn btn-outline-warning")
-  const [optionClassD, setoptionClassD] = useState("btn btn-outline-warning")
+  const [optionClassA, setoptionClassA] = useState("btn btn-warning")
+  const [optionClassB, setoptionClassB] = useState("btn btn-warning")
+  const [optionClassC, setoptionClassC] = useState("btn btn-warning")
+  const [optionClassD, setoptionClassD] = useState("btn btn-warning")
 
-  // let score = 0
-  let signal = [0,0,0,0]
-  let selectedOption = []
+  // let allow = 0
+
 
   const selectedOptionFcnA = ()=>{
-    setoptionClassA("btn btn-warning")
-    setoptionClassB("btn btn-outline-warning")
-    setoptionClassC("btn btn-outline-warning")
-    setoptionClassD("btn btn-outline-warning")
-    signal = [1,0,0,0]
+    setoptionClassA("btn btn-success")
+    setoptionClassB("btn btn-warning")
+    setoptionClassC("btn btn-warning")
+    setoptionClassD("btn btn-warning")
+    setsignal([1,0,0,0])
   }
   const selectedOptionFcnB = ()=>{
-    setoptionClassA("btn btn-outline-warning")
-    setoptionClassB("btn btn-warning")
-    setoptionClassC("btn btn-outline-warning")
-    setoptionClassD("btn btn-outline-warning")
-    signal = [0,1,0,0]
+    setoptionClassA("btn btn-warning")
+    setoptionClassB("btn btn-success")
+    setoptionClassC("btn btn-warning")
+    setoptionClassD("btn btn-warning")
+    setsignal([0,1,0,0])
   }
   const selectedOptionFcnC = ()=>{
-    setoptionClassA("btn btn-outline-warning")
-    setoptionClassB("btn btn-outline-warning")
-    setoptionClassC("btn btn-warning")
-    setoptionClassD("btn btn-outline-warning")
-    signal = [0,0,1,0]
+    setoptionClassA("btn btn-warning")
+    setoptionClassB("btn btn-warning")
+    setoptionClassC("btn btn-success")
+    setoptionClassD("btn btn-warning")
+    setsignal([0,0,1,0])
   }
   const selectedOptionFcnD = ()=>{
-    setoptionClassA("btn btn-outline-warning")
-    setoptionClassB("btn btn-outline-warning")
-    setoptionClassC("btn btn-outline-warning")
-    setoptionClassD("btn btn-warning")
-    signal = [0,0,0,1]
+    setoptionClassA("btn btn-warning")
+    setoptionClassB("btn btn-warning")
+    setoptionClassC("btn btn-warning")
+    setoptionClassD("btn btn-success")
+    setsignal([0,0,0,1])
   }
 
   const nextQuestion = ()=>{
     console.log("Hurreyyy")
-    setoptionClassA("btn btn-outline-warning")
-    setoptionClassB("btn btn-outline-warning")
-    setoptionClassC("btn btn-outline-warning")
-    setoptionClassD("btn btn-outline-warning")
+    setoptionClassA("btn btn-warning")
+    setoptionClassB("btn btn-warning")
+    setoptionClassC("btn btn-warning")
+    setoptionClassD("btn btn-warning")
 
     if(i<5){
+      
       for(let k=0;k<signal.length;k++){
-        if(k===1){
-          selectedOption.push(k)
-          console.log(selectedOption)
+        if(signal[k]===1){
+          console.log(signal)
+          selectedvalue.push(k);
+          console.log(selectedvalue)
         }
       }
     }
@@ -73,7 +81,6 @@ function Quiz(props) {
         setquest_optionB(quizPart[m].option_given[1])
         setquest_optionC(quizPart[m].option_given[2])
         setquest_optionD(quizPart[m].option_given[3])
-        console.log(m)
       }
       else{
         // m = i
@@ -83,89 +90,58 @@ function Quiz(props) {
         // setquest_optionB(quizPart[m].option_given[1])
         // setquest_optionC(quizPart[m].option_given[2])
         // setquest_optionD(quizPart[m].option_given[3])
-        
-        const value = document.getElementsByClassName('quiz_box');
-        value.innerHTML = "";
-        let check = []
-        let score = 0;
-
+        console.log("aagaya bhaiiii")
+        let score_val =0
         for(let k=0;k<quizPart.length;k++){
-          if(selectedOption[k]===quizPart[k].answer){
+          console.log(selectedvalue[k])
+          if(selectedvalue[k]===quizPart[k].answer){
               check.push('Correct');
-              score+=1;
+              score_val+=1
+              setscore(score_val)
           }
           else{
-              check.push('Incorrect')
+              check.push('Incorrect');
           }
         }
-        // setquizBox(
-        //   <Result rightWrong={check} score={score} totalQuestion={quizPart.length}></Result>
-        // )
-      }
+        setshowscore(true)
+        console.log(check)
+        return check;
     }
 
-  // const previousQuestion = ()=>{
-  //   let m
-  //   if(i>0){
-  //     m = i
-  //     m -=1;
-  //     seti(m)
-  //     setquest(quizPart[m].question)
-  //     setquest_optionA(quizPart[m].option_given[0])
-  //     setquest_optionB(quizPart[m].option_given[1])
-  //     setquest_optionC(quizPart[m].option_given[2])
-  //     setquest_optionD(quizPart[m].option_given[3])
-  //     console.log(m)
-  //   }
-  //   else{
-  //     m = i
-  //     seti(m)
-  //     setquest(quizPart[m].question)
-  //     setquest_optionA(quizPart[m].option_given[0])
-  //     setquest_optionB(quizPart[m].option_given[1])
-  //     setquest_optionC(quizPart[m].option_given[2])
-  //     setquest_optionD(quizPart[m].option_given[3])
-  //   }
-  // }
+  }
 
-
-  // if(m)
-
-  // console.log(score)
-
-  // const [buttonContent, setbuttonContent] = useState(
-  //   <div className="pfButtons">
-  //     <button id="prev"className="btn btn-info" onClick={previousQuestion}>Previous</button>
-  //     <button id="next" className="btn btn-info" onClick={nextQuestion}>Next</button>
-  //   </div>
-  // )
 
   return (
     <div>
-      <div className="containerm">
-        <h1 id='heading'>{props.heading}</h1>
-        <div className="quiz_box">
-      <div className="screen">
-        <h2>{quest}</h2>
-      </div>
-      <div className="options">
-          <button className={optionClassA} onClick={selectedOptionFcnA}><h4>A. {quest_optionA}</h4></button>
-          <button className={optionClassB} onClick={selectedOptionFcnB}><h4>B. {quest_optionB}</h4></button>
-          <button className={optionClassC} onClick={selectedOptionFcnC}><h4>C. {quest_optionC}</h4></button>
-          <button className={optionClassD} onClick={selectedOptionFcnD}><h4>D. {quest_optionD}</h4></button>
-          {/* {buttonContent} */}
-          <div className="pfButtons">
-            {/* <button id="prev"className="btn btn-info" onClick={previousQuestion}>Previous</button> */}
-            <button id="next" className="btn btn-info" onClick={nextQuestion}>Next</button>
-          </div>
-      </div>
+        <div className="containerm">
+          <h1 id='heading'>{props.heading}</h1>
+          <div className="quiz_box">
+            <div className="screen">
+              <h2>{quest}</h2>
+            </div>
+            <div className="options">
+                <button className={optionClassA} onClick={selectedOptionFcnA}><h4>A. {quest_optionA}</h4></button>
+                <button className={optionClassB} onClick={selectedOptionFcnB}><h4>B. {quest_optionB}</h4></button>
+                <button className={optionClassC} onClick={selectedOptionFcnC}><h4>C. {quest_optionC}</h4></button>
+                <button className={optionClassD} onClick={selectedOptionFcnD}><h4>D. {quest_optionD}</h4></button>
+                {/* {buttonContent} */}
+                <div className="pfButtons">
+                  {/* <button id="prev"className="btn btn-info" onClick={previousQuestion}>Previous</button> */}
+                  <button id="next" className="btn btn-info" onClick={nextQuestion}>Next</button>
+                </div>
+            </div>
+          </div><br/><br/>         
+        </div>
+
+        <h2 id='scoreboard'>{showscore?`Score: ${score}/${quizPart.length}`:``}</h2>
+        <h2 id='resultboard'>{showscore?`Result: ${check}`:``}</h2>
+
+        {/* <h2>
+          {showscore?<h1>{check}</h1>:``}   
+        </h2> */}
     </div>
-      </div>
-    </div>
-  
   )
-
-
 }
 
 export default Quiz;
+

@@ -1,7 +1,9 @@
-// import logo from './logo.svg';
 import './App.css';
-import PropTypes from 'prop-types'
-import Quiz from './components/Quiz'
+import logo from './logo.svg';
+import PropTypes from 'prop-types';
+import Quiz from './components/Quiz';
+// import Result from './components/Result';
+
 
 function App() {
   return (
