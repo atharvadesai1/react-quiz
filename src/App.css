@@ -71,6 +71,10 @@
   background-color: bisque;
 }
 
+.screen>h2{
+  margin: 15px;
+}
+
 .options{
   display: grid;
   grid-template-columns: repeat(2,355px);
